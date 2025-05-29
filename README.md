@@ -3,7 +3,7 @@
 Welcome to **Fortt'Studio**! This portfolio showcases a collection of my skills, experiences, and projects that I've worked on as part of my learning journey in web development. It is designed to be responsive, interactive, and user-friendly.
 
 ## 🚀 Live Demo
-[Live Demo]()
+[Live Demo https://fortune-123-ux.github.io/Fortune-project-/
 
 ## 📁 Project Structure
 project-root/
