@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .counter-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .counter-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .counter-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border: 2px solid #e1e5fe;
+            transition: all 0.3s ease;
+        }
+
+        .counter-display.updated {
+            transform: scale(1.1);
+            background: #667eea;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .counter-btn {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+
+        .increment-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .increment-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .decrement-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .decrement-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .reset-btn {
+            background: #ff9800;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #e68900;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .counter-btn:active {
+            transform: translateY(0);
+        }
+
+        .counter-info {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .counter-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .counter-display {
+                font-size: 3rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .counter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <h1 class="counter-title">Number Counter</h1>
+        <div class="counter-display" id="counterDisplay">0</div>
+        <div class="button-group">
+            <button class="counter-btn decrement-btn" id="decrementBtn">-</button>
+            <button class="counter-btn reset-btn" id="resetBtn">Reset</button>
+            <button class="counter-btn increment-btn" id="incrementBtn">+</button>
+        </div>
+        <div class="counter-info">
+            <p>Click the buttons to change the counter value</p>
+        </div>
+    </div>
+
+    <script>
+        
+        const counterDisplay = document.getElementById('counterDisplay');
+        const incrementBtn = document.getElementById('incrementBtn');
+        const decrementBtn = document.getElementById('decrementBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        
+        let counter = 0;
+
+        
+        function updateDisplay() {
+            counterDisplay.textContent = counter;
+            
+           
+            counterDisplay.classList.add('updated');
+            setTimeout(() => {
+                counterDisplay.classList.remove('updated');
+            }, 200);
+        }
+
+       
+        function increment() {
+            counter++;
+            updateDisplay();
+        }
+
+        
+        function decrement() {
+            counter--;
+            updateDisplay();
+        }
+
+       
+        function reset() {
+            counter = 0;
+            updateDisplay();
+        }
+
+       
+        incrementBtn.addEventListener('click', increment);
+        decrementBtn.addEventListener('click', decrement);
+        resetBtn.addEventListener('click', reset);
+
+        // Add keyboard support
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowUp':
+                case '+':
+                    event.preventDefault();
+                    increment();
+                    break;
+                case 'ArrowDown':
+                case '-':
+                    event.preventDefault();
+                    decrement();
+                    break;
+                case 'r':
+                case 'R':
+                    event.preventDefault();
+                    reset();
+                    break;
+            }
+        });
+
+        
+        function addButtonFeedback(button) {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(2px)';
+            });
+            
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        }
+
+        
+        addButtonFeedback(incrementBtn);
+        addButtonFeedback(decrementBtn);
+        addButtonFeedback(resetBtn);
+    </script>
+</body>
+</html>
